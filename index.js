@@ -4,10 +4,10 @@ const jsonFile = require('jsonfile');
 
 function convert(options) {
     const jsonFileResult = jsonFile.readFileSync(options.inputJsonFile);
-    jsonFileResult.forEach(function (feature) {
+    Object.keys(jsonFileResult).forEach(function (feature) {
         let durationInSec = 0;
         const suite = builder.testSuite().name(feature.name);
-        feature.elements.forEach(function (scenario) {
+        Object.keys(feature.elements).forEach(function (scenario) {
             if (scenario.type == "background") {
                 return;
             }
@@ -44,7 +44,7 @@ function getScenarioSummary(scenario) {
     let status = 'passed';
     let message = null;
     let duration = 0;
-    scenario.steps.forEach(function (step) {
+    Object.keys(scenario.steps).forEach(function (step) {
         if (step.result.duration) {
             duration += step.result.duration; 
         }
